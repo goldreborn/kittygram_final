@@ -8,6 +8,9 @@ on:
 jobs:
   tests:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["pypy3.9", "pypy3.10", "3.9", "3.10", "3.11", "3.12"]
     services:
       postgres:
         image: postgres:13.10
@@ -22,8 +25,6 @@ jobs:
     - uses: actions/checkout@v3
     - name: Set up Python
       uses: actions/setup-python@v4
-      with:
-        python-version: ["pypy3.9", "pypy3.10", "3.9", "3.10", "3.11", "3.12"]
 
     - name: Install dependencies
       run: |
@@ -166,4 +167,11 @@ jobs:
       with:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
-        message: Деплой kittygram завершен.
+        message: |
+          Деплой kittygram завершен.
+
+          author: ${{ github.actor }}
+
+          message: ${{ github.event.head_commit.message }}
+          
+          link: https://github.com/${{ github.repository }}/commit/${{ github.sha }}.
