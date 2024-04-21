@@ -30,10 +30,9 @@ services:
   gateway:
     depends_on:
       backend:
-        condition: service_healthy
+        condition: service_started
     image: goldreborn/kittygram_gateway
     env_file: .env
-    command: wait-for-it
     ports:
       - 9000:80
     volumes:
