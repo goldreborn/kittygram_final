@@ -156,7 +156,7 @@ jobs:
             sudo docker compose -f docker-compose.production.yml up -d
             # Выполняет миграции и сбор статики
             sudo docker compose -f docker-compose.production.yml exec backend python manage.py migrate
-            sudo docker compose -f --no-input docker-compose.production.yml exec backend python manage.py collectstatic
+            sudo docker compose -f docker-compose.production.yml exec --no-input backend python manage.py collectstatic
   send_message:
     runs-on: ubuntu-latest
     needs: deploy
