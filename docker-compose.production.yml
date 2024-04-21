@@ -4,7 +4,7 @@ volumes:
   pg_data:
   static:
   media:
-
+  
 services:
   db:
     image: postgres:13.10
@@ -24,7 +24,7 @@ services:
     image: goldreborn/kittygram_backend
     env_file: .env
     volumes:
-      - static:/static/
+      - static:/static_backend/
       - media:/app/media/
 
   frontend:
@@ -32,7 +32,7 @@ services:
     image: goldreborn/kittygram_frontend
     command: cp -r /app/build/. /static/
     volumes:
-      - static:/static
+      - static:/static/
 
   gateway:
     depends_on:
