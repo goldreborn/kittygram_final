@@ -62,7 +62,7 @@ DATABASES = {
         'NAME': 'db',
         'USER': 'adm',
         'PASSWORD': 'adm',
-        'HOST': 'db',
+        'HOST': '127.0.0.1',
         'PORT': 5432,
     }
 }
@@ -98,7 +98,7 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'static_backend'
+STATIC_ROOT = BASE_DIR / 'static'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
