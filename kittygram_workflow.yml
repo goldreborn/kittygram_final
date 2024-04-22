@@ -12,9 +12,9 @@ jobs:
       postgres:
         image: postgres:13.10
         env:
-          POSTGRES_USER: django_user
-          POSTGRES_PASSWORD: django_password
-          POSTGRES_DB: django_db
+          POSTGRES_USER: adm
+          POSTGRES_PASSWORD: adm
+          POSTGRES_DB: kittygram
         ports:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
@@ -32,9 +32,9 @@ jobs:
         pip install -r ./backend/requirements.txt 
     - name: Test with flake8 and django tests
       env:
-        POSTGRES_USER: django_user
-        POSTGRES_PASSWORD: django_password
-        POSTGRES_DB: django_db
+        POSTGRES_USER: adm
+        POSTGRES_PASSWORD: adm
+        POSTGRES_DB: kittygram
         DB_HOST: 127.0.0.1
         DB_PORT: 5432
       run: |
@@ -156,8 +156,7 @@ jobs:
             sudo docker compose -f docker-compose.production.yml up -d
             # Выполняет миграции и сбор статики
             sudo docker compose -f docker-compose.production.yml exec backend python manage.py migrate
-            sudo docker compose -f docker-compose.production.yml exec backend python manage.py collectstatic
-            sudo docker compose -f docker-compose.production.yml exec backend cp -r /app/static_backend/. /static/static/
+            sudo docker compose -f docker-compose.production.yml exec backend python manage.py collectstatic --no-input
   send_message:
     runs-on: ubuntu-latest
     needs: deploy
