@@ -12,10 +12,14 @@ services:
     env_file: .env
     volumes:
       - pg_data_production:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
   backend:
     depends_on:
       db:
-        condition: service_healthy
     container_name: backend_prod
     image: goldreborn/kittygram_backend
     env_file: .env
