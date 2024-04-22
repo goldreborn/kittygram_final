@@ -1,48 +1,48 @@
 version: '3'
 
 volumes:
-  pg_data_production:
-  static_volume:
-  media_volume:
-
+  pg_data:
+  static:
+  media:
+  
 services:
   db:
-    container_name: db
     image: postgres:13.10
     env_file: .env
     volumes:
-      - pg_data_production:/var/lib/postgresql/data
+      - pg_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "postgres"]
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
       timeout: 5s
       retries: 5
+
   backend:
     depends_on:
       db:
-       condition: service_healthy
-    container_name: backend_prod
+        condition: service_healthy
     image: goldreborn/kittygram_backend
     env_file: .env
     volumes:
-      - static_volume:/backend_static
-      - media_volume:/media
+      - static:/static/
+      - media:/app/media/
+
   frontend:
-    container_name: frontend_prod
-    image: goldreborn/kittygram_frontend
     env_file: .env
+    image: goldreborn/kittygram_frontend
     command: cp -r /app/build/. /static/
     volumes:
-      - static_volume:/static
+      - static:/static/
+
   gateway:
     depends_on:
-      backend_prod:
+      backend:
         condition: service_started
-    container_name: nginx_prod
     image: goldreborn/kittygram_gateway
     env_file: .env
-    volumes:
-      - static_volume:/static/
-      - media_volume:/media
+    command: wait-for-it
     ports:
       - 9000:80
+    volumes:
+      - static:/static
+      - media:/app/media/
