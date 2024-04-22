@@ -20,6 +20,7 @@ services:
   backend:
     depends_on:
       db:
+      condition: service_healthy
     container_name: backend_prod
     image: goldreborn/kittygram_backend
     env_file: .env
