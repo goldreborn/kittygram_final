@@ -24,7 +24,7 @@ services:
     image: goldreborn/kittygram_backend
     env_file: .env
     volumes:
-      - static:/static_backend/
+      - static:/static/
       - media:/app/media/
 
   frontend:
