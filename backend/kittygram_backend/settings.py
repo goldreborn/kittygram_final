@@ -60,8 +60,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
-        'USER': 'adm',
-        'PASSWORD': 'adm',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
         'HOST': 'kittygram-db-1',
         'PORT': 5432,
     }
