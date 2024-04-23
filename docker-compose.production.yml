@@ -6,6 +6,7 @@ volumes:
   media:
 
 
+
 services:
   db:
     image: postgres:13.10
@@ -13,6 +14,8 @@ services:
     volumes:
       - pg_data:/var/lib/postgresql/data
   backend:
+    depends_on:
+      - db
     image: goldreborn/kittygram_backend
     env_file: .env
     volumes:
@@ -25,6 +28,8 @@ services:
     volumes:
       - static:/static
   gateway:
+    depends_on:
+      - backend
     image: goldreborn/kittygram_gateway
     env_file: .env
     ports:

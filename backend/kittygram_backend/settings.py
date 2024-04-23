@@ -8,7 +8,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('SECRET_KEY', get_random_secret_key())
 
-DEBUG = True
+DEBUG = os.getenv('DEBUG', False)
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', default='127.0.0.1, localhost').split(',')
 
@@ -62,7 +62,7 @@ DATABASES = {
         'NAME': 'postgres',
         'USER': 'adm',
         'PASSWORD': 'adm',
-        'HOST': '127.0.0.1',
+        'HOST': 'kittygram-db-1',
         'PORT': 5432,
     }
 }
