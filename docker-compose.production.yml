@@ -10,19 +10,22 @@ volumes:
 services:
   db:
     image: postgres:13.10
-    env_file: .env
+    env_file:
+      - /home/yc-user/kittygram/.env
     volumes:
       - pg_data:/var/lib/postgresql/data
   backend:
     depends_on:
       - db
     image: goldreborn/kittygram_backend
-    env_file: .env
+    env_file:
+      - /home/yc-user/kittygram/.env
     volumes:
       - static:/static/
       - media:/app/media/
   frontend:
-    env_file: .env
+    env_file:
+      - /home/yc-user/kittygram/.env
     image: goldreborn/kittygram_frontend
     command: cp -r /app/build/. /static/
     volumes:
@@ -31,7 +34,8 @@ services:
     depends_on:
       - backend
     image: goldreborn/kittygram_gateway
-    env_file: .env
+    env_file:
+      - /home/yc-user/kittygram/.env
     ports:
       - 9000:80
     volumes:
